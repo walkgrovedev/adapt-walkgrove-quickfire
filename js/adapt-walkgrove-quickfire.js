@@ -6,12 +6,31 @@ define([
 
   var QuickFireView = ComponentView.extend({
 
+    events: {
+      'click .js-option1-click': 'onAnswerClickedFirst',
+      'click .js-option2-click': 'onAnswerClickedSecond',
+      'click .js-retry-click': 'onRetryClicked'
+    },
+
+    _questionsTotal: 0,
+    _questionIndex: -1,
+    _correct: 0,
+    _incorrect: 0,
+    
     preRender: function() {
       this.checkIfResetOnRevisit();
     },
 
     postRender: function() {
       this.setReadyStatus();
+
+      this._questionsTotal = this.model.get('_items').length;
+
+      this.model.get('_items').forEach(function(item, index) {
+        this.$('.quickfire__feedback-title').eq(index).html(index + 1);
+      });
+
+      this.showNextQuestion();
     },
 
     checkIfResetOnRevisit: function() {
@@ -21,7 +40,96 @@ define([
       if (isResetOnRevisit) {
         this.model.reset(isResetOnRevisit);
       }
+    },
+
+    showNextQuestion() {
+      if(this._questionIndex >= 0) {
+        this.$('.quickfire__question-container').eq(this._questionIndex).removeClass('is-visible');
+      }
+      this._questionIndex++;
+      this.$('.quickfire__question-container').eq(this._questionIndex).addClass('is-visible');
+    },
+
+    onAnswerClickedFirst: function () {
+      this.answerClicked(1);
+    },
+
+    onAnswerClickedSecond: function() {
+      this.answerClicked(2);
+    },
+
+    answerClicked: function(optionIndex) {
+
+      let answer = 0;
+      const qNum = this._questionIndex;
+      
+      this.model.get('_items').forEach(function(item, index) {
+        if(index === qNum) {
+          answer = Number(item._correct);
+        }
+      });
+      
+      if(answer === optionIndex) {
+        this._correct++;
+        this.$('.quickfire__progress-dot').eq(this._questionIndex).addClass('correct');
+      } else {
+        this._incorrect++;
+        this.$('.quickfire__progress-dot').eq(this._questionIndex).addClass('incorrect');
+      }
+
+      if(this._questionIndex < this._questionsTotal-1) {
+        this.showNextQuestion();
+      } else {
+        this.$('.quickfire__question-container').eq(this._questionIndex).removeClass('is-visible');
+        this.onEndQuiz();
+      }
+
+    },
+
+    onEndQuiz: function() {
+
+      this.model.get('_items').forEach(function(item, index) {
+        this.$('.quickfire__question-container').eq(index).removeClass('is-visible');
+      });
+
+      let content = "";
+      const percent = Math.round((100/this._questionsTotal) * this._correct);
+      if(percent >= this.model.get('_passPercent')){
+        // pass
+        content = this.model.get('_feedback').pass;
+        this.setCompletionStatus();
+      }else {
+        content = this.model.get('_feedback').fail;
+        this.$('.quickfire__feedback-buttons').addClass('is-visible');
+      }
+
+      content = content.replace('{0}','' + percent + '');
+      this.$('.quickfire__feedback').html(content);
+
+      this.$('.quickfire__feedbacks').addClass('is-visible');
+      this.$('.quickfire__feedback-container').addClass('is-visible');
+
+    },
+
+    onRetryClicked: function(){
+      this._questionIndex = -1;
+      this._correct = 0;
+      this._incorrect = 0;
+
+      this.$('.quickfire__feedbacks').removeClass('is-visible');
+      this.$('.quickfire__feedback-container').removeClass('is-visible');
+      this.$('.quickfire__feedback-buttons').removeClass('is-visible');
+
+      this.model.get('_items').forEach(function(item, index) {
+        this.$('.quickfire__progress-dot').eq(index).removeClass('correct');
+        this.$('.quickfire__progress-dot').eq(index).removeClass('incorrect');
+      });
+
+      this.showNextQuestion();
+
     }
+
+
   },
   {
     template: 'quickfire'

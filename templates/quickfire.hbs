@@ -1,12 +1,44 @@
 <div class="component__inner quickfire__inner">
   {{> component this}} 
 
-  {{!-- <div class="quickfire__main">
+  <div class="quickfire__main">
   {{#each _items}}
+    <div class="quickfire__question-container">
 
+      <div class="quickfire__feedback-title"></div>
+      <div class="quickfire__question-stem">{{{stem}}}</div>
+
+      <div class="quickfire__option-buttons button" id="quickfire__buttons">
+        <button class="quickfire__option-btn btn js-option1-click"  aria-label="{{{_options.option1}}}">
+          <span>{{{_options.option1}}}</span>
+        </button>
+        <button class="quickfire__option-btn btn js-option2-click"  aria-label="{{{_options.option2}}}">
+          <span>{{{_options.option2}}}</span>
+        </button>
+      </div>
+
+    </div>
   {{/each}}
   </div> 
   
-  {{#if body}} {{/if}} --}}
+  <div class="quickfire__feedbacks">
+    <div class="quickfire__feedback-container">
+      {{#if _feedback.title}}
+        <div class="quickfire__feedback-title">{{{_feedback.title}}}</div>
+      {{/if}}
+      <div class="quickfire__feedback"></div>
+      <div class="quickfire__feedback-buttons button" id="quickfire__buttons">
+        <button class="quickfire__btn btn js-retry-click"  aria-label="{{{_feedback.retryText}}}">
+          <span>{{{_feedback.retryText}}}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="quickfire__progress-container">
+    {{#each _items}}
+      <div class="quickfire__progress-dot" ></div>
+    {{/each}}
+  </div>
 
 </div>
