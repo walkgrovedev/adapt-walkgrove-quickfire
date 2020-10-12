@@ -56,7 +56,7 @@
           "_options": {
             "type": "object",
             "required": true,
-            "title": "Feedbacks",
+            "title": "Options",
             "properties": {
               "option1": {
                 "type": "string",
