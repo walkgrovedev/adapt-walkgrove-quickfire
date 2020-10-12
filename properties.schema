@@ -29,6 +29,106 @@
       "validators": [],
       "help": "This is the instruction text",
       "translatable": true
+    },
+    "_passPercent": {
+      "type": "number",
+      "required": true,
+      "translatable": false
+    },
+    "_items": {
+      "type": "array",
+      "required": true,
+      "title": "Questions",
+      "items": {
+        "type": "object",
+        "required": true,
+        "properties": {
+          "stem": {
+            "type": "string",
+            "required": true,
+            "default": "",
+            "title": "Question stem",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": true
+          },
+          "_options": {
+            "type": "object",
+            "required": true,
+            "title": "Feedbacks",
+            "properties": {
+              "option1": {
+                "type": "string",
+                "required": true,
+                "default": "",
+                "title": "Option 1 title",
+                "inputType": "Text",
+                "validators": [],
+                "help": "",
+                "translatable": true
+              },
+              "option2": {
+                "type": "string",
+                "required": true,
+                "default": "",
+                "title": "Option 2 title",
+                "inputType": "Text",
+                "validators": [],
+                "help": "",
+                "translatable": true
+              }
+            }
+          },
+          "_correct": {
+            "type": "string",
+            "required": true,
+            "default": "",
+            "title": "Correct option number",
+            "inputType": "Text",
+            "validators": [],
+            "help": "",
+            "translatable": false
+          }
+        }
+      }
+    },
+    "_feedback": {
+      "type": "object",
+      "required": true,
+      "title": "Feedbacks",
+      "properties": {
+        "pass": {
+          "type": "string",
+          "required": true,
+          "default": "",
+          "title": "Pass feeback",
+          "inputType": "Text",
+          "validators": [],
+          "help": "",
+          "translatable": true
+        },
+        "fail": {
+          "type": "string",
+          "required": true,
+          "default": "",
+          "title": "Fail feedback",
+          "inputType": "Text",
+          "validators": [],
+          "help": "",
+          "translatable": true
+        },
+        "retryText": {
+          "type": "string",
+          "required": true,
+          "default": "",
+          "title": "Retry button title",
+          "inputType": "Text",
+          "validators": [],
+          "help": "",
+          "translatable": true
+        }
+      }
     }
   }
 }

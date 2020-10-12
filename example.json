@@ -37,7 +37,6 @@
             }
         ],
         "_feedback": {
-            "title": "Feedback",
             "pass": "<h3>Well done</h3><p>You've passed this quiz with a score of {0}%.</p><p>Feedback ...</p>",
             "fail": "<h3>Ooops</h3><p>You scored {0}%, which isn't enough to pass this quiz.</p><p>Feedback ...</p><p>Select the <strong>Restart</strong> button to try again.</p>",
             "retryText": "Restart"
