@@ -1,14 +1,10 @@
 {
     "name": "adapt-walkgrove-quickfire",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/walkgrovedev/adapt-walkgrove-quickfire.git"
-    },
-    "framework": "5",
+    "framework": ">=5",
     "version": "1.0.0",
     "homepage": "https://github.com/walkgrovedev/adapt-walkgrove-quickfire.git",
-    "component": "Quick Fire",
-    "displayName": "quickfire",
+    "component": "quickfire",
+    "displayName": "Quick Fire",
     "description": "A component ...",
     "main": "/js/adapt-walkgrove-quickfire.js",
     "keywords": [
