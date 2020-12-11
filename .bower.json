@@ -1,5 +1,6 @@
 {
   "name": "adapt-walkgrove-quickfire",
+  "version": "1.0.0",
   "framework": ">=5",
   "homepage": "https://github.com/walkgrovedev/adapt-walkgrove-quickfire.git",
   "component": "quickfire",
@@ -15,7 +16,7 @@
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "fc7f94768a5618ddde8b55bf5991fe26bd233f5c"
+    "commit": "26de280dd3b749b4b1da173dcca7ab71ac0ecf5f"
   },
   "_source": "git://github.com/walkgrovedev/adapt-walkgrove-quickfire.git",
   "_target": "1.0.0",
