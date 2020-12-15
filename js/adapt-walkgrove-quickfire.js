@@ -48,6 +48,19 @@ define([
       }
       this._questionIndex++;
       this.$('.quickfire__question-container').eq(this._questionIndex).addClass('is-visible');
+      
+      //audio?
+      if (Adapt.config.get('_sound')._isActive === true) {
+        if(this._questionIndex > 0) {
+          this.model.get('_items').forEach((item, i) => {
+            if (i === this._questionIndex) {
+              if (item._audio) {
+                Adapt.trigger('audio:partial', {src: item._audio._src});
+              }
+            }
+          });
+        }
+      }
     },
 
     onAnswerClickedFirst: function () {
@@ -88,6 +101,10 @@ define([
 
     onEndQuiz: function() {
 
+      if (Adapt.config.get('_sound')._isActive === true) {
+        Adapt.trigger('audio:stop');
+      }
+
       this.model.get('_items').forEach(function(item, index) {
         this.$('.quickfire__question-container').eq(index).removeClass('is-visible');
       });
@@ -124,6 +141,16 @@ define([
         this.$('.quickfire__progress-dot').eq(index).removeClass('correct');
         this.$('.quickfire__progress-dot').eq(index).removeClass('incorrect');
       });
+
+      if (Adapt.config.get('_sound')._isActive === true) {
+        this.model.get('_items').forEach((item, i) => {
+          if (i === 0) {
+            if (item._audio) {
+              Adapt.trigger('audio:partial', {src: item._audio._src});
+            }
+          }
+        });
+      }
 
       this.showNextQuestion();
 
