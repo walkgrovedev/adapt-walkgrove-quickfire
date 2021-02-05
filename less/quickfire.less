@@ -44,6 +44,9 @@
         flex-direction: column; 
         align-items: center;
         justify-content: center;
+
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
         
         // box-shadow: 0 2px 5px fade(@black, 30%);
         background-color: @lightGrey;
@@ -62,6 +65,10 @@
             animation-name: fadeIn;
             animation-duration: 1s;
         }
+    }
+
+    &__feedback {
+        width: 100%;
     }
 
     .quickfire__feedback-title {

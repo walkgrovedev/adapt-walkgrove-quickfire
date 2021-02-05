@@ -12,6 +12,8 @@ define([
       'click .js-retry-click': 'onRetryClicked'
     },
 
+    _attempts: 1,
+    _attemptsTaken: 0,
     _questionsTotal: 0,
     _questionIndex: -1,
     _correct: 0,
@@ -25,6 +27,7 @@ define([
       this.setReadyStatus();
 
       this._questionsTotal = this.model.get('_items').length;
+      this._attempts = this.model.get('_attempts');
 
       this.model.get('_items').forEach(function(item, index) {
         this.$('.quickfire__feedback-title').eq(index).html(index + 1);
@@ -101,6 +104,8 @@ define([
 
     onEndQuiz: function() {
 
+      this._attemptsTaken++;
+      
       if (Adapt.config.get('_sound')._isActive === true) {
         Adapt.trigger('audio:stop');
       }
@@ -115,9 +120,15 @@ define([
         // pass
         content = this.model.get('_feedback').pass;
         this.setCompletionStatus();
-      }else {
-        content = this.model.get('_feedback').fail;
-        this.$('.quickfire__feedback-buttons').addClass('is-visible');
+      } else {
+        if(this._attemptsTaken === this._attempts) {
+          content = this.model.get('_feedback').fail;
+          this.$('.quickfire__feedback-buttons').removeClass('is-visible');
+          this.setCompletionStatus();
+        } else {
+          content = this.model.get('_feedback').partialFail;
+          this.$('.quickfire__feedback-buttons').addClass('is-visible');
+        }
       }
 
       content = content.replace('{0}','' + percent + '');
