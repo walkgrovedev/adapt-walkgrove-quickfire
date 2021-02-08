@@ -51,6 +51,8 @@ define([
       }
       this._questionIndex++;
       this.$('.quickfire__question-container').eq(this._questionIndex).addClass('is-visible');
+
+      this.$('.quickfire__question-stem').eq(this._questionIndex).a11y_focus();
       
       //audio?
       if (Adapt.config.get('_sound')._isActive === true) {
@@ -133,6 +135,8 @@ define([
 
       content = content.replace('{0}','' + percent + '');
       this.$('.quickfire__feedback').html(content);
+
+      this.$('.quickfire__feedback').a11y_focus();
 
       this.$('.quickfire__feedbacks').addClass('is-visible');
       this.$('.quickfire__feedback-container').addClass('is-visible');
